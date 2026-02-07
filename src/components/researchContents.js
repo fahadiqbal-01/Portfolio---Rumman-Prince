@@ -5,7 +5,7 @@ export default function ResearchContents() {
         <img
           src="/images/researchBanner.jpg"
           property="priority"
-          className=" absolute left-0 -top-60 -z-20 select-none  "
+          className=" w-full mx-auto absolute left-0 -top-65 -z-20 select-none  "
         />
         <h1 className=" font-Bebas text-[94px] text-white flex flex-col absolute left-[50%] top-[50%] translate-[-50%] ">
           Research

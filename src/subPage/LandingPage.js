@@ -10,7 +10,7 @@ export default function LandingPage() {
           autoPlay
           loop
           muted
-          className="absolute left-0 -top-50 object-cover "
+          className=" w-full mx-auto absolute left-0 -top-50 object-cover "
           playsInline
           property="priority"
         >
@@ -22,9 +22,13 @@ export default function LandingPage() {
         /> */}
         <h1 className=" font-Bebas text-[94px] text-[#000000] flex flex-col absolute left-[20%] translate-x-[-20%] top-[40%] translate-y-[-40%] select-none ">
           Shah Mohammad Rumman Prince
-          <span className=" text-[38px] w-180 ">
-            BSS Student at the University of Dhaka Disaster Management, Climate
-            Adaptation & Resilience Research
+          <span className=" text-[38px] w-340 ">
+            I aspire to contribute to interdisciplinary research and development
+            efforts in disaster risk reduction, climate change adaptation, and
+            sustainable development. With a focus on vulnerable populations and
+            systemic resilience, I aspire to support innovative, evidence-based
+            strategies that enhance community preparedness, reduce disaster
+            risks, and foster a more sustainable and equitable future.
           </span>
         </h1>
       </div>
@@ -121,8 +125,10 @@ export default function LandingPage() {
             />
           </div>
         </div>
-        <div className=" mt-15 " >
-          <h1 className=" text-[32px] text-white font-Bebas select-none ">Socials</h1>
+        <div className=" mt-15 ">
+          <h1 className=" text-[32px] text-white font-Bebas select-none ">
+            Socials
+          </h1>
           <div className=" mt-4 flex justify-start items-center gap-2 ">
             <a
               href="https://www.linkedin.com/in/shah-mohammad-rumman-princee/"
@@ -154,7 +160,9 @@ export default function LandingPage() {
           </div>
         </div>
         <div className=" mt-15 ">
-          <h1 className=" text-[32px] text-white font-Bebas select-none ">Education</h1>
+          <h1 className=" text-[32px] text-white font-Bebas select-none ">
+            Education
+          </h1>
           <p className=" font-Supreme text-[16px] text-white mt-2 ">
             <span className=" font-bold ">University of Dhaka</span> <br />
             Degree: BSS Subject: Disaster Management and Vulnerability Studies
