@@ -3,7 +3,7 @@ export default function ResearchContents() {
     <div className=" pb-50 ">
       <div className=" h-[60vh] select-none relative">
         <img
-          src="/images/researchBanner.jpeg"
+          src="/images/researchBanner.jpg"
           property="priority"
           className=" absolute left-0 -top-60 -z-20 select-none  "
         />
