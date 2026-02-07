@@ -5,12 +5,22 @@ import { useEffect } from "react";
 export default function LandingPage() {
   return (
     <section className=" pb-30 ">
-      <div className=" h-[90vh] relative">
-        <img
-          src="/images/banner5.jpg"
+      <div className=" h-[90vh]  relative">
+        <video
+          autoPlay
+          loop
+          muted
+          className="absolute left-0 -top-50 object-cover "
+          playsInline
+          property="priority"
+        >
+          <source src="images/bv.mp4" type="video/mp4" />
+        </video>
+        {/* <img
+          src="/images/banner2.jpg"
           className=" absolute left-0 -top-50 -z-20 select-none "
-        />
-        <h1 className=" font-Bebas text-[94px] text-white flex flex-col absolute left-[20%] translate-x-[-20%] top-[40%] translate-y-[-40%] ">
+        /> */}
+        <h1 className=" font-Bebas text-[94px] text-[#000000] flex flex-col absolute left-[20%] translate-x-[-20%] top-[40%] translate-y-[-40%] select-none ">
           Shah Mohammad Rumman Prince
           <span className=" text-[38px] w-180 ">
             BSS Student at the University of Dhaka Disaster Management, Climate
@@ -21,9 +31,10 @@ export default function LandingPage() {
       <ContainerSec>
         <img
           src="images/sig.png"
-          className=" invert-100 mx-auto my-15 w-150 rotate-40 "
+          className=" invert-100 mx-auto my-20 w-150 rotate-40 "
+          property="priority"
         />
-        <div className=" mt-20 pb-14 border-b border-gray-500 ">
+        <div className=" pb-14 border-b border-gray-300 ">
           <h1 className=" font-Bebas text-[32px] text-white mb-4 ">
             Hey, I’m Shah Mohammad Rumman Prince!
           </h1>
@@ -103,8 +114,53 @@ export default function LandingPage() {
               </a>{" "}
               (among other achievements).
             </p>
-            <img src="/images/prince.png" className=" w-125 ml-auto " />
+            <img
+              src="/images/prince.png"
+              className=" w-125 ml-auto "
+              property="priority"
+            />
           </div>
+        </div>
+        <div className=" mt-15 " >
+          <h1 className=" text-[32px] text-white font-Bebas select-none ">Socials</h1>
+          <div className=" mt-4 flex justify-start items-center gap-2 ">
+            <a
+              href="https://www.linkedin.com/in/shah-mohammad-rumman-princee/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className=" font-Supreme text-[17px] text-black bg-white px-3 py-1 border-2 border-white
+               hover:border-yellow-400 hover:text-yellow-400 hover:bg-transparent duration-300 ease-out select-none "
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/rummanaminn-stack"
+              target="_blank"
+              rel="noopener noreferrer"
+              className=" font-Supreme text-[17px] text-black bg-white px-3 py-1 border-2 border-white
+               hover:border-yellow-400 hover:text-yellow-400 hover:bg-transparent duration-300 ease-out select-none "
+            >
+              Github
+            </a>
+            <a
+              href="mailto:shahmdrumman-11-2022412854@idmvs.du.ac.bd"
+              target="_blank"
+              rel="noopener noreferrer"
+              className=" font-Supreme text-[17px] text-black bg-white px-3 py-1 border-2 border-white
+               hover:border-yellow-400 hover:text-yellow-400 hover:bg-transparent duration-300 ease-ou select-none "
+            >
+              Mail
+            </a>
+          </div>
+        </div>
+        <div className=" mt-15 ">
+          <h1 className=" text-[32px] text-white font-Bebas select-none ">Education</h1>
+          <p className=" font-Supreme text-[16px] text-white mt-2 ">
+            <span className=" font-bold ">University of Dhaka</span> <br />
+            Degree: BSS Subject: Disaster Management and Vulnerability Studies
+            <br />
+            Duration: 4years
+          </p>
         </div>
       </ContainerSec>
     </section>

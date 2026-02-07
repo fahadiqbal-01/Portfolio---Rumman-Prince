@@ -1,5 +1,6 @@
 import NavBar from "@/components/NavBar";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Mohammad R. Prince",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
       <body className=" bg-[#000000] selection:bg-white selection:text-black mt-20 ">
         <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );
