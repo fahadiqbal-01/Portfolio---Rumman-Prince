@@ -20,7 +20,7 @@ export default function LandingPage() {
           src="/images/banner2.jpg"
           className=" absolute left-0 -top-50 -z-20 select-none "
         /> */}
-        <h1 className=" font-Bebas text-[94px] text-[#000000] flex flex-col absolute left-[20%] translate-x-[-20%] top-[40%] translate-y-[-40%] select-none ">
+        <h1 className=" font-Bebas text-[94px] text-[#000000] flex flex-col absolute left-[30%] translate-x-[-30%] top-[40%] translate-y-[-40%] select-none ">
           Shah Mohammad Rumman Prince
           <span className=" text-[38px] w-340 ">
             I aspire to contribute to interdisciplinary research and development
