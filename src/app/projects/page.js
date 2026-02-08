@@ -1,6 +1,6 @@
 import ProjectContents from "@/components/projectContents";
 
-export default function Banner() {
+export default function Project() {
   return (
     <section>
       <ProjectContents />

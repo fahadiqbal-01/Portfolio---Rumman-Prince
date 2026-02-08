@@ -1,8 +1,8 @@
 import ResearchContents from "@/components/researchContents";
 
-export default function Banner() {
+export default function Research() {
   return (
-    <section>
+    <section className=" h-full " >
       <ResearchContents />
     </section>
   );

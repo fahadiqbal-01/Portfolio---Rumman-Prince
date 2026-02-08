@@ -1,7 +1,6 @@
 import AboutContents from "@/components/aboutContents";
 
-export default function Banner() {
-
+export default function About() {
   return (
     <section>
       <AboutContents />

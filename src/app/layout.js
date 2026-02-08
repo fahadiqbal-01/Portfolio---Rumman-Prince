@@ -1,6 +1,7 @@
 import NavBar from "@/components/NavBar";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import ScrollToTopFix from "@/components/ScrollToTopFix";
 
 export const metadata = {
   title: "Mohammad R. Prince",
@@ -11,6 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className=" bg-[#000000] selection:bg-white selection:text-black mt-20 ">
+        <ScrollToTopFix />
         <NavBar />
         {children}
         <Footer />

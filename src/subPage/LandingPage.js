@@ -3,8 +3,12 @@ import ContainerSec from "@/components/containerSec";
 import { useEffect } from "react";
 
 export default function LandingPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   return (
-    <section className=" pb-30 ">
+    <section className=" pb-50 h-fit ">
       <div className=" h-[90vh]  relative">
         <video
           autoPlay
@@ -165,9 +169,10 @@ export default function LandingPage() {
           </h1>
           <p className=" font-Supreme text-[16px] text-white mt-2 ">
             <span className=" font-bold ">University of Dhaka</span> <br />
-            Degree: BSS Subject: Disaster Management and Vulnerability Studies
+            Degree: BSS <br />
+            Subject: Disaster Management and Vulnerability Studies
             <br />
-            Duration: 4years
+            Duration: 4 years
           </p>
         </div>
       </ContainerSec>

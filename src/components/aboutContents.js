@@ -4,6 +4,7 @@ import ContainerSec from "./containerSec";
 export default function AboutContents() {
   return (
     <div className=" pb-50 ">
+      {/* banner */}{" "}
       <div className=" h-[60vh] relative select-none">
         <img
           src="/images/aboutBanner.jpg"
@@ -14,7 +15,9 @@ export default function AboutContents() {
           CV
         </h1>
       </div>
-      <ContainerSec className={` max-w-280! `}>
+      {/* banner */}
+      {/* main content */}{" "}
+      <ContainerSec >
         <div className=" h-screen bg-[#000000] mx-auto mt-30 ">
           <p className=" font-Supreme text-[16px] text-white w-fit mx-auto mb-6 ">
             I routinely update my CV, but the most up-to-date news will be
@@ -64,6 +67,7 @@ export default function AboutContents() {
           </div>
         </div>
       </ContainerSec>
+      {/* main content */}
     </div>
   );
 }
