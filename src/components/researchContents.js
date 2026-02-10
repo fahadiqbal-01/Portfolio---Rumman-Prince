@@ -51,7 +51,7 @@ export default function ResearchContents() {
       {/* Research List */}
       <ContainerSec>
         <h1 className="font-Bebas text-[32px] text-white mt-30 select-none">
-          Ongoing Research
+          My Researches
         </h1>
 
         {loading ? (
@@ -67,7 +67,7 @@ export default function ResearchContents() {
                 key={item.id}
                 title={item.title}
                 description={item.description}
-                image={item.image} // Cloudinary URL
+                image={item.image} 
                 imageTitle={item.imageTitle}
               />
             ))}

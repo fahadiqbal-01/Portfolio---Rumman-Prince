@@ -124,7 +124,7 @@ export default function LandingPage() {
             </p>
             <img
               src="/images/prince.png"
-              className=" w-125 ml-auto "
+              className=" w-125 ml-auto select-none "
               property="priority"
             />
           </div>
