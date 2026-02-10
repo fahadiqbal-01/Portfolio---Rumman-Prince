@@ -38,7 +38,7 @@ export default function UploadData() {
     return () => unsubscribe();
   }, [router]);
 
-//   ------------------ UPLOAD HANDLERS ------------------
+  //   ------------------ UPLOAD HANDLERS ------------------
   const handleUploadResearch = async (e) => {
     e.preventDefault();
     if (!resImage) return alert("Please select an image!");
@@ -133,13 +133,30 @@ export default function UploadData() {
             className="bg-transparent outline-2 outline-white py-2 px-2 text-white h-40 rounded-sm focus:outline-yellow-400"
             required
           />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setResImage(e.target.files[0])}
-            className="text-white"
-            required
-          />
+          {/* Image Upload */}
+          <div className="flex flex-col gap-2 -ml-0.5 ">
+            <input
+              type="file"
+              id="researchImage"
+              accept="image/*"
+              onChange={(e) => setResImage(e.target.files[0])}
+              className="hidden"
+              required
+            />
+
+            <label
+              htmlFor="researchImage"
+              className="w-fit cursor-pointer border-2 border-white px-4 py-2 text-white
+    hover:border-yellow-400 hover:text-yellow-400 duration-300 rounded-md"
+            >
+              Upload Image
+            </label>
+
+            {resImage && (
+              <p className="text-sm text-gray-300">Selected: {resImage.name}</p>
+            )}
+          </div>
+
           <input
             type="text"
             value={resImageTitle}
@@ -151,7 +168,7 @@ export default function UploadData() {
           <button
             type="submit"
             disabled={loadingUpload}
-            className="text-[18px] text-black mt-4 px-3 py-1 border-2 border-transparent bg-white rounded-sm w-fit
+            className="text-[18px] text-black mt-4 px-3 py-1 border-2 border-transparent bg-white rounded-md w-fit
             hover:text-yellow-400 hover:bg-transparent hover:border-yellow-400 duration-300 ease-out cursor-pointer select-none disabled:opacity-50"
           >
             {loadingUpload ? "Uploading..." : "Upload Research"}

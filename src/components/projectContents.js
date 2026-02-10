@@ -49,7 +49,7 @@ export default function ProjectContents() {
       </div>
       <ContainerSec>
         <h1 className="font-Bebas text-[32px] text-white mt-30 select-none">
-          My Prpjects
+          My Projects
         </h1>
         <div>
           {loading ? (
