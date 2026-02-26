@@ -39,7 +39,7 @@ export default function NavBar() {
       }`}
     >
       <Container
-        className={` flex items-center justify-between ${isScrolled ? "h-10 duration-300 ease-out " : "h-20 duration-300 ease-out "} `}
+        className={` flex items-center justify-between ${isScrolled ? " h-13  duration-300 ease-out " : "h-20 duration-300 ease-out "} `}
       >
         {/* Logo */}
         <Link
