@@ -12,6 +12,9 @@
     "@react-pdf/renderer": "^4.3.2",
     "axios": "^1.13.5",
     "firebase": "^12.9.0",
+    "framer-motion": "^12.34.3",
+    "lucide-react": "^0.564.0",
+    "motion": "^12.34.3",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"

@@ -35,29 +35,31 @@ export default function ResearchContents() {
   }, []);
 
   return (
-    <div className="pb-50">
+    <div className="pb-30 sm:pb-40 md:pb-50 lg:pb-60 2xl:pb-70">
       {/* Banner Section */}
-      <div className="h-[60vh] relative select-none">
+      <div className="2xl:h-[60vh] xl:h-[60vh] lg:h-[60vh] md:h-[25vh] h-[15vh] relative select-none">
         <img
           src="/images/researchBanner.jpg"
           alt="Research Banner"
-          className="w-full absolute left-0 -top-65 -z-20 select-none"
+          className="w-full absolute left-0 2xl:-top-60 xl:-top-35 lg:-top-25 -top-20 -z-20 select-none"
         />
-        <h1 className="font-Bebas text-[94px] text-white absolute left-[50%] top-[50%] translate-[-50%]">
+        <h1 className="font-Bebas 2xl:text-[94px] xl:text-[94px] lg:text-[84px] md:text-[64px] text-[34px] text-white absolute left-[50%] 2xl:top-[50%] xl:top-[50%] lg:top-[50%] md:top-[50%] top-[30%] translate-[-50%]">
           Research
         </h1>
       </div>
 
       {/* Research List */}
       <ContainerSec>
-        <h1 className="font-Bebas text-[32px] text-white mt-30 select-none">
+        <h1 className="font-Bebas text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] 2xl:text-[40px] text-white mt-20 sm:mt-24 md:mt-30 lg:mt-36 2xl:mt-40 select-none">
           My Researches
         </h1>
 
         {loading ? (
-          <p className="text-white text-[17px] font-Supreme mt-4">Loading...</p>
+          <p className="text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] 2xl:text-[18px] font-Supreme mt-4 sm:mt-6 md:mt-8">
+            Loading...
+          </p>
         ) : data.length === 0 ? (
-          <p className="text-white text-[17px] font-Supreme mt-4">
+          <p className="text-white text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] 2xl:text-[18px] font-Supreme mt-4 sm:mt-6 md:mt-8">
             No research data found.
           </p>
         ) : (
@@ -67,7 +69,7 @@ export default function ResearchContents() {
                 key={item.id}
                 title={item.title}
                 description={item.description}
-                image={item.image} 
+                image={item.image}
                 imageTitle={item.imageTitle}
               />
             ))}

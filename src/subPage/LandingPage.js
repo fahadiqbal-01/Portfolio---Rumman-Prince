@@ -1,181 +1,180 @@
 "use client";
+
 import ContainerSec from "@/components/containerSec";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function LandingPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
-  });
+  }, []);
 
   return (
-    <section className=" pb-50 h-fit ">
-      <div className=" h-[90vh]  relative">
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="w-full overflow-x-hidden pb-20 sm:pb-25 md:pb-30 lg:pb-40 2xl:pb-50"
+    >
+      {/* ================= HERO SECTION ================= */}
+      <div className="relative 2xl:h-[90vh] xl:h-[90vh] lg:h-[90vh] md:h-[50vh] h-[60vh] w-full overflow-hidden ">
+        {/* Background Video */}
         <video
           autoPlay
           loop
           muted
-          className=" w-full mx-auto absolute left-0 -top-50 object-cover "
           playsInline
-          property="priority"
+          className=" w-full h-full object-cover"
         >
-          <source src="images/bv.mp4" type="video/mp4" />
+          <source src="/images/bv.mp4" type="video/mp4" />
         </video>
-        {/* <img
-          src="/images/banner2.jpg"
-          className=" absolute left-0 -top-50 -z-20 select-none "
-        /> */}
-        <h1 className=" font-Bebas text-[94px] text-[#000000] flex flex-col absolute left-[30%] translate-x-[-30%] top-[40%] translate-y-[-40%] select-none ">
-          Shah Mohammad Rumman Prince
-          <span className=" text-[38px] w-340 ">
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-[#000000]/40"></div>
+
+        {/* Hero Content */}
+        <div className=" absolute top-0 2xl:left-50 xl:left-20 z-10 flex flex-col justify-center h-full 2xl:max-w-6xl xl:max-w-6xl lg:max-w-4xl md:max-w-3xl max-w-auto mx-auto px-6 ">
+          <h1
+            className="
+            font-Bebas text-[#ffffff]
+            text-[36px]
+            sm:text-[48px]
+            md:text-[60px]
+            lg:text-[60px]
+            xl:text-[80px]
+            2xl:text-[94px]
+          "
+          >
+            Shah Mohammad Rumman Prince
+          </h1>
+
+          <p
+            className="
+            2xl:mt-4 xl:mt-4 lg:mt-0 text-[#ffffff] font-Supreme font-light
+            2xl:text-[28px] xl:text-[28px] lg:text-[24px] md:text-[20px] text-[16px]
+          "
+          >
             I aspire to contribute to interdisciplinary research and development
             efforts in disaster risk reduction, climate change adaptation, and
             sustainable development. With a focus on vulnerable populations and
             systemic resilience, I aspire to support innovative, evidence-based
             strategies that enhance community preparedness, reduce disaster
             risks, and foster a more sustainable and equitable future.
-          </span>
-        </h1>
+          </p>
+        </div>
       </div>
+
+      {/* ================= MAIN CONTENT ================= */}
       <ContainerSec>
+        {/* Signature */}
         <img
-          src="images/sig.png"
-          className=" invert-100 mx-auto my-20 w-150 rotate-40 "
-          property="priority"
+          src="/images/sig.png"
+          className="invert mx-auto my-8 sm:my-10 md:my-12 lg:my-14 2xl:my-16 w-full max-w-[250px] sm:max-w-[300px] md:max-w-[350px] lg:max-w-[400px] 2xl:max-w-[450px] rotate-12"
+          alt="signature"
         />
-        <div className=" pb-14 border-b border-gray-300 ">
-          <h1 className=" font-Bebas text-[32px] text-white mb-4 ">
+
+        {/* About Section */}
+        <div className="pb-10 sm:pb-12 md:pb-14 lg:pb-16 2xl:pb-20 border-b border-gray-300">
+          <h1 className="font-Bebas text-[26px] sm:text-[28px] md:text-[32px] lg:text-[36px] 2xl:text-[40px] text-white mb-3 sm:mb-4 md:mb-5 lg:mb-6">
             Hey, I’m Shah Mohammad Rumman Prince!
           </h1>
-          <div className=" grid grid-cols-2 gap-6 ">
-            <p className=" text-[16px] text-white font-Supreme mt-2 ">
+
+          <div className="grid grid-cols-1 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 2xl:gap-14">
+            <p className="text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] 2xl:text-[18px] text-white font-Supreme leading-relaxed">
               <a
                 href="https://du.ac.bd/undergrad/IDMVS"
                 target="_blank"
-                className=" text-yellow-400 "
+                className="text-yellow-400"
               >
                 BSS Student (Disaster Management & Vulnerability Studies),
-                University of Dhaka | Disaster Risk Reduction & Climate
-                Adaptation Focus
+                University of Dhaka
               </a>
-              <br /> <br />
+              <br />
+              <br />
               I’m currently pursuing my Bachelor of Social Sciences (BSS) at the
               Institute of Disaster Management and Vulnerability Studies at the
               University of Dhaka.
-              <br /> <br />
+              <br />
+              <br />
               My core goal is to contribute to interdisciplinary research and
               development in disaster risk reduction (DRR), climate change
               adaptation, and sustainable development—with a clear emphasis on
-              vulnerable populations and systemic resilience. I’m especially
-              interested in work that translates evidence into practical
-              strategies that improve preparedness, reduce disaster risk, and
-              support a more equitable future.
-              <br /> <br />
-              Alongside academics, I’m building strong technical foundations
-              through training in research methodology, risk assessment, DRR in
-              humanitarian action, GIS and spatial analysis, project management,
-              and data analytics (including ‎
-              <a
-                href="https://www.ibm.com/products/spss-statistics"
-                target="_blank"
-                className=" text-yellow-400 "
-              >
-                SPSS/statistics
-              </a>
-              ‎ and{" "}
-              <a
-                href="https://www.python.org/"
-                target="_blank"
-                className=" text-yellow-400 "
-              >
-                Python-related learning tracks
-              </a>
-              ).
-              <br /> <br />I also take on leadership and service roles. I
-              currently serve as President of the Environment & Disaster
-              Management club at Surja Sen Hall, and I work as a Research
-              Assistant at the University of Dhaka. I’ve also volunteered with ‎
-              <a
-                href="https://bdrcs.org/youth-and-volunteers/"
-                target="_blank"
-                className=" text-yellow-400 "
-              >
-                Bangladesh Red Crescent Society (BDRCS)
-              </a>
-              ‎ youth activities at DU, Give Bangladesh Foundation, and
-              Volunteer for Bangladesh.
-              <br /> <br />
-              Recognition-wise, I’ve been awarded Outstanding Mentee by{" "}
-              <a
-                href="https://www.aeyn.org/"
-                target="_blank"
-                className=" text-yellow-400 "
-              >
-                Asian Environmental Youth Network ‎
-              </a>
-              and earned{" "}
-              <a
-                href="https://event.unitar.org/full-catalog/becoming-climate-champion"
-                className=" text-yellow-400 "
-                target="_blank"
-              >
-                “Becoming a Climate Champion” through UNITAR
-              </a>{" "}
-              (among other achievements).
+              vulnerable populations and systemic resilience.
+              <br />
+              <br />
+              I’m building strong technical foundations in research methodology,
+              GIS, project management, and data analytics including SPSS and
+              Python.
+              <br />
+              <br />I serve as President of the Environment & Disaster
+              Management Club and work as a Research Assistant at DU.
             </p>
+
             <img
               src="/images/prince.png"
-              className=" w-125 ml-auto select-none "
-              property="priority"
+              className="w-full 2xl:max-w-[500px] xl:max-w-[500px] lg:max-w-[500px] md:max-w-[350px] sm:max-w-[280px] max-w-[250px] mx-auto lg:ml-auto 2xl:my-0 xl:my-0 lg:my-0 md:my-auto select-none"
+              alt="Prince"
             />
           </div>
         </div>
-        <div className=" mt-15 ">
-          <h1 className=" text-[32px] text-white font-Bebas select-none ">
+
+        {/* Socials */}
+        <div className="mt-10 sm:mt-12 md:mt-14 lg:mt-16 2xl:mt-20">
+          <h1 className="text-[26px] sm:text-[28px] md:text-[32px] lg:text-[36px] 2xl:text-[40px] text-white font-Bebas">
             Socials
           </h1>
-          <div className=" mt-4 flex justify-start items-center gap-2 ">
-            <a
-              href="https://www.linkedin.com/in/shah-mohammad-rumman-princee/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className=" font-Supreme text-[17px] text-black bg-white px-3 py-1 border-2 border-white
-               hover:border-yellow-400 hover:text-yellow-400 hover:bg-transparent duration-300 ease-out select-none "
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/rummanaminn-stack"
-              target="_blank"
-              rel="noopener noreferrer"
-              className=" font-Supreme text-[17px] text-black bg-white px-3 py-1 border-2 border-white
-               hover:border-yellow-400 hover:text-yellow-400 hover:bg-transparent duration-300 ease-out select-none "
-            >
-              Github
-            </a>
-            <a
-              href="mailto:shahmdrumman-11-2022412854@idmvs.du.ac.bd"
-              target="_blank"
-              rel="noopener noreferrer"
-              className=" font-Supreme text-[17px] text-black bg-white px-3 py-1 border-2 border-white
-               hover:border-yellow-400 hover:text-yellow-400 hover:bg-transparent duration-300 ease-ou select-none "
-            >
-              Mail
-            </a>
+
+          <div className="mt-3 sm:mt-4 md:mt-5 lg:mt-6 2xl:mt-8 flex flex-wrap gap-2 sm:gap-3 md:gap-4 lg:gap-5 2xl:gap-6">
+            {[
+              {
+                name: "LinkedIn",
+                link: "https://www.linkedin.com/in/shah-mohammad-rumman-princee/",
+              },
+              {
+                name: "Github",
+                link: "https://github.com/rummanaminn-stack",
+              },
+              {
+                name: "Mail",
+                link: "mailto:shahmdrumman-11-2022412854@idmvs.du.ac.bd",
+              },
+            ].map((item) => (
+              <a
+                key={item.name}
+                href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  font-Supreme text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] 2xl:text-[16px]
+                  text-black bg-white
+                  px-3 sm:px-4 md:px-5 lg:px-6 2xl:px-7 py-1.5 sm:py-2 md:py-2.5 lg:py-3
+                  border-2 border-white
+                  hover:border-yellow-400
+                  hover:text-yellow-400
+                  hover:bg-transparent
+                  duration-300 ease-out
+                "
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
         </div>
-        <div className=" mt-15 ">
-          <h1 className=" text-[32px] text-white font-Bebas select-none ">
+
+        {/* Education */}
+        <div className="mt-10 sm:mt-12 md:mt-14 lg:mt-16 2xl:mt-20">
+          <h1 className="text-[26px] sm:text-[28px] md:text-[32px] lg:text-[36px] 2xl:text-[40px] text-white font-Bebas">
             Education
           </h1>
-          <p className=" font-Supreme text-[16px] text-white mt-2 ">
-            <span className=" font-bold ">University of Dhaka</span> <br />
+
+          <p className="font-Supreme text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] 2xl:text-[17px] text-white mt-2 sm:mt-3 md:mt-4">
+            <span className="font-bold">University of Dhaka</span> <br />
             Degree: BSS <br />
-            Subject: Disaster Management and Vulnerability Studies
-            <br />
+            Subject: Disaster Management and Vulnerability Studies <br />
             Duration: 4 years
           </p>
         </div>
       </ContainerSec>
-    </section>
+    </motion.section>
   );
 }

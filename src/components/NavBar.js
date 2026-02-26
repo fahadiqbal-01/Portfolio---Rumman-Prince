@@ -1,25 +1,26 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Container from "./container";
 import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
 
 export default function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname(); // detect current route
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
+  // Stable scroll detection (no layout jump)
   useEffect(() => {
     const handleScroll = () => {
-      requestAnimationFrame(() => {
-        setIsScrolled(window.scrollY > 20);
-      });
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // List of links for cleaner mapping
   const links = [
     { name: "Home", href: "/" },
     { name: "About , CV", href: "/about" },
@@ -29,40 +30,85 @@ export default function NavBar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full mx-auto z-50 transition-all duration-300 ease-out select-none
-        ${isScrolled ? "bg-[#000000] " : "bg-transparent"}`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        menuOpen
+          ? "bg-[#000000]"
+          : isScrolled
+            ? "bg-[#000000] shadow-lg"
+            : "bg-transparent"
+      }`}
     >
       <Container
-        className={`flex items-center justify-between duration-300 ease-out ${
-          isScrolled ? "pl-0 py-1 " : "pl-4 py-6"
-        }`}
+        className={` flex items-center justify-between ${isScrolled ? "h-10 duration-300 ease-out " : "h-20 duration-300 ease-out "} `}
       >
+        {/* Logo */}
         <Link
           href="/"
-          className={`font-Bebas text-[28px] transition-colors ${
-            isScrolled ? "text-white" : "text-white"
-          }`}
+          className="font-Bebas text-[20px] sm:text-[22px] md:text-[24px] lg:text-[26px] text-white"
         >
           Shah Mohammad Rumman Prince
         </Link>
 
-        <div className="flex items-center gap-8">
+        {/* Desktop Menu */}
+        <div className="hidden lg:flex items-center gap-8">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`font-Bebas text-[18px] transition-colors after:content-[""] after:h-0.5 after:w-0 after:bg-yellow-400 after:absolute after:top-[50%] after:translate-y-[-50%] after:left-[50%] after:translate-x-[-50%] 
-                hover:after:w-[140%] hover:after:bg-yellow-400 hover:after:duration-300 hover:after:ease-out relative ${
-                  pathname === link.href
-                    ? "text-yellow-400 after:w-[120%] " // active link style
-                    : "text-white"
-                }`}
+              className={`font-Bebas text-[18px] relative transition-colors
+              after:content-[""] after:h-0.5 after:w-0 after:bg-yellow-400 
+              after:absolute after:top-1/2 after:left-1/2 
+              after:-translate-x-1/2 after:-translate-y-1/2 
+              after:transition-all after:duration-300
+              hover:after:w-[140%]
+              ${
+                pathname === link.href
+                  ? "text-yellow-400 after:w-[120%]"
+                  : "text-white"
+              }`}
             >
               {link.name}
             </Link>
           ))}
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="lg:hidden text-white transition-transform duration-300"
+        >
+          {menuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </Container>
+
+      {/* Mobile Dropdown */}
+      <div
+        className={`lg:hidden bg-[#000000] overflow-hidden transition-all duration-500 ease-in-out border-b border-yellow-00
+        ${menuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"}`}
+      >
+        <Container className="flex flex-col items-center gap-6 py-6">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className={`font-Bebas text-[20px] relative transition-colors
+              after:content-[""] after:h-0.5 after:w-0 after:bg-yellow-400 
+              after:absolute after:top-1/2 after:left-1/2 
+              after:-translate-x-1/2 after:-translate-y-1/2 
+              after:transition-all after:duration-300
+              hover:after:w-[140%]
+              ${
+                pathname === link.href
+                  ? "text-yellow-400 after:w-[120%]"
+                  : "text-white"
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+        </Container>
+      </div>
     </nav>
   );
 }
