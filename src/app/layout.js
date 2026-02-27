@@ -3,11 +3,12 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import ScrollToTopFix from "@/components/ScrollToTopFix";
 
+export const viewport =
+  "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no";
+
 export const metadata = {
   title: "Shah Mohammad Rumman Prince",
   description: "",
-  viewport:
-    "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
 };
 
 export default function RootLayout({ children }) {
