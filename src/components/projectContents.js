@@ -4,6 +4,7 @@ import ProjectContent from "./projectCart";
 import { db } from "../../firebaseConfig";
 import { useEffect, useState } from "react";
 import { ref, onValue } from "firebase/database";
+import { motion } from "framer-motion";
 
 export default function ProjectContents() {
   const [data, setData] = useState([]);
@@ -37,20 +38,36 @@ export default function ProjectContents() {
   return (
     <div className="pb-30 sm:pb-40 md:pb-50 lg:pb-60 2xl:pb-70">
       <div className="2xl:h-[60vh] xl:h-[60vh] lg:h-[60vh] md:h-[25vh] h-[15vh] relative select-none">
-        <img
+        <motion.img
+          initial={{ opacity: 0, scale: 1.05 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
           src="/images/projectBanner.jpg"
           property="priority"
           className="w-full mx-auto absolute left-0 2xl:-top-150 xl:-top-105 lg:-top-82 md:-top-60 -top-40 -z-20 select-none"
           priority="priority"
         />
-        <h1 className="font-Bebas 2xl:text-[94px] xl:text-[94px] lg:text-[84px] md:text-[64px] text-[34px] text-white flex flex-col absolute left-[50%] 2xl:top-[50%] xl:top-[50%] lg:top-[50%] md:top-[50%] top-[30%] translate-[-50%]">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+          viewport={{ once: true }}
+          className="font-Bebas 2xl:text-[94px] xl:text-[94px] lg:text-[84px] md:text-[64px] text-[34px] text-white flex flex-col absolute left-[50%] 2xl:top-[50%] xl:top-[50%] lg:top-[50%] md:top-[50%] top-[30%] translate-[-50%]"
+        >
           Projects
-        </h1>
+        </motion.h1>
       </div>
       <ContainerSec>
-        <h1 className="font-Bebas text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] 2xl:text-[40px] text-white mt-20 sm:mt-24 md:mt-30 lg:mt-36 2xl:mt-40 select-none">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
+          viewport={{ once: true }}
+          className="font-Bebas text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] 2xl:text-[40px] text-white mt-20 sm:mt-24 md:mt-30 lg:mt-36 2xl:mt-40 select-none"
+        >
           My Projects
-        </h1>
+        </motion.h1>
         <div>
           {loading ? (
             <p className="text-white text-[17px] font-Supreme mt-4">
@@ -61,7 +78,12 @@ export default function ProjectContents() {
               No research data found.
             </p>
           ) : (
-            <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true }}
+            >
               {data.map((item) => (
                 <ProjectContent
                   key={item.id}
@@ -71,7 +93,7 @@ export default function ProjectContents() {
                   contribution={item.contribution}
                 />
               ))}
-            </div>
+            </motion.div>
           )}
         </div>
       </ContainerSec>

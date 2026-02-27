@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Container from "./container";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,7 +35,7 @@ export default function NavBar() {
         menuOpen
           ? "bg-[#000000]"
           : isScrolled
-            ? "bg-[#000000] shadow-lg"
+            ? "bg-[#000000]"
             : "bg-transparent"
       }`}
     >
@@ -82,8 +83,11 @@ export default function NavBar() {
       </Container>
 
       {/* Mobile Dropdown */}
-      <div
-        className={`lg:hidden bg-[#000000] overflow-hidden transition-all duration-500 ease-in-out border-b border-yellow-00
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.4 }}
+        className={`lg:hidden bg-[#000000] overflow-hidden transition-all duration-500 ease-in-out
         ${menuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"}`}
       >
         <Container className="flex flex-col items-center gap-6 py-6">
@@ -108,7 +112,7 @@ export default function NavBar() {
             </Link>
           ))}
         </Container>
-      </div>
+      </motion.div>
     </nav>
   );
 }
