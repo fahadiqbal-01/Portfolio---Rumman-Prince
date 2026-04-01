@@ -114,7 +114,32 @@ export default function LeftSlide() {
     );
   }
 
-  if (certificates.length === 0) return null;
+  if (certificates.length === 0) {
+    return (
+      <section className="mb-12 mt-20 relative z-40">
+        <ContainerSec>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+            className="text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] 2xl:text-[40px] text-white font-Bebas mb-8"
+          >
+            Certificates
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-gray-400 text-lg"
+          >
+            No certificate to show
+          </motion.p>
+        </ContainerSec>
+      </section>
+    );
+  }
 
   return (
     <section className="mb-12 mt-20 relative z-40">
