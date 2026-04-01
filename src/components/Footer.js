@@ -63,6 +63,23 @@ export default function Footer() {
         &copy; {new Date().getFullYear()} Mohammad R. Prince. All rights
         reserved.
       </motion.div>
+      {/* <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut", delay: 0.6 }}
+        viewport={{ once: true }}
+        className="pt-1 sm:pt-2 md:pt-3 lg:pt-4 2xl:pt-4 text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] 2xl:text-[16px]
+        flex justify-center items-center gap-2 "
+      >
+        Designed and Developed by{" "}
+        <a
+          href="https://www.lazystudio.co/"
+          target="_blank"
+          className=" font-black text-md text-white underline "
+        >
+          @LazyStudio
+        </a>
+      </motion.div> */}
     </footer>
   );
 }

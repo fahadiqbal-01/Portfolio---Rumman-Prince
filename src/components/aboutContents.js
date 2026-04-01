@@ -2,6 +2,7 @@
 import Link from "next/link";
 import ContainerSec from "./containerSec";
 import { motion } from "framer-motion";
+import LeftSlide from "./LeftSlide";
 
 export default function AboutContents() {
   return (
@@ -100,6 +101,10 @@ export default function AboutContents() {
             </p>
           </motion.div>
         </div>
+      </ContainerSec>
+      <LeftSlide />
+      <ContainerSec>
+
         <div className="2xl:mt-25 xl:mt-25 lg:mt-25 md:mt-0 mt-15">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -108,7 +113,7 @@ export default function AboutContents() {
             viewport={{ once: true }}
             className="text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] 2xl:text-[40px] text-white font-Bebas"
           >
-            ​Academic Affiliations
+            Academic Affiliations
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
