@@ -23,8 +23,6 @@ export default function ResearchContents() {
             id,
             title: item.title,
             description: item.description,
-            image: item.imageUrl || "/images/res.jpg", // Use Cloudinary URL
-            imageTitle: item.imageTitle || "",
           }))
         : [];
 
@@ -91,8 +89,6 @@ export default function ResearchContents() {
                 key={item.id}
                 title={item.title}
                 description={item.description}
-                image={item.image}
-                imageTitle={item.imageTitle}
               />
             ))}
           </motion.div>

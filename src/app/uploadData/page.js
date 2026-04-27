@@ -8,6 +8,22 @@ import { db } from "../../../firebaseConfig";
 import Container from "@/components/container";
 import axios from "axios";
 
+const sortByOrder = (items) =>
+  [...items].sort((a, b) => {
+    const aOrder = typeof a.order === "number" ? a.order : Number.MAX_SAFE_INTEGER;
+    const bOrder = typeof b.order === "number" ? b.order : Number.MAX_SAFE_INTEGER;
+
+    if (aOrder !== bOrder) return aOrder - bOrder;
+    return a.id.localeCompare(b.id);
+  });
+
+const moveItem = (items, fromIndex, toIndex) => {
+  const nextItems = [...items];
+  const [movedItem] = nextItems.splice(fromIndex, 1);
+  nextItems.splice(toIndex, 0, movedItem);
+  return nextItems;
+};
+
 export default function UploadData() {
   const router = useRouter();
   const [loadingAuth, setLoadingAuth] = useState(true);
@@ -15,21 +31,17 @@ export default function UploadData() {
 
   const [resTitle, setResTitle] = useState("");
   const [resDescription, setResDescription] = useState("");
-  const [resImage, setResImage] = useState(null);
-  const [resImageTitle, setResImageTitle] = useState("");
-
   const [projTitle, setProjTitle] = useState("");
   const [projDescription, setProjDescription] = useState("");
   const [projDuration, setProjDuration] = useState("");
   const [projContribution, setProjContribution] = useState("");
 
   const [editResId, setEditResId] = useState(null);
-  const [editResImageUrl, setEditResImageUrl] = useState("");
   const [editProjId, setEditProjId] = useState(null);
 
   const [certImage, setCertImage] = useState(null);
-  const [editCertId, setEditCertId] = useState(null);
-  const [editCertImageUrl, setEditCertImageUrl] = useState("");
+  const [draggedCertId, setDraggedCertId] = useState(null);
+  const [savingCertOrder, setSavingCertOrder] = useState(false);
 
   const [researches, setResearches] = useState([]);
   const [projects, setProjects] = useState([]);
@@ -74,8 +86,11 @@ export default function UploadData() {
     const unsubscribeCerts = onValue(certsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        const list = Object.entries(data).map(([id, val]) => ({ id, ...val }));
-        setCertificates(list);
+        const list = Object.entries(data).map(([id, val]) => ({
+          id,
+          ...val,
+        }));
+        setCertificates(sortByOrder(list));
       } else {
         setCertificates([]);
       }
@@ -90,51 +105,28 @@ export default function UploadData() {
 
   const handleUploadResearch = async (e) => {
     e.preventDefault();
-    if (!editResId && !resImage) return alert("Please select an image!");
     setLoadingUpload(true);
 
     try {
-      let imageUrl = editResImageUrl;
-
-      if (resImage) {
-        const formData = new FormData();
-        formData.append("file", resImage);
-        formData.append("upload_preset", "rummansPortfolio");
-
-        const cloudName = "dnm3tmkca";
-        const response = await axios.post(
-          `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-          formData,
-        );
-        imageUrl = response.data.secure_url;
-      }
-
       if (editResId) {
         const researchRef = ref(db, `research/${editResId}`);
         await update(researchRef, {
           title: resTitle,
           description: resDescription,
-          imageTitle: resImageTitle,
-          imageUrl,
         });
-        alert("Research updated ✅");
+        alert("Research updated.");
       } else {
         const newRef = push(ref(db, "research"));
         await set(newRef, {
           title: resTitle,
           description: resDescription,
-          imageTitle: resImageTitle,
-          imageUrl,
         });
-        alert("Research uploaded ✅");
+        alert("Research uploaded.");
       }
 
       setResTitle("");
       setResDescription("");
-      setResImage(null);
-      setResImageTitle("");
       setEditResId(null);
-      setEditResImageUrl("");
     } catch (err) {
       console.error("Upload failed:", err);
       alert("Upload/Update failed!");
@@ -184,8 +176,6 @@ export default function UploadData() {
   const handleEditResearchBtn = (res) => {
     setResTitle(res.title || "");
     setResDescription(res.description || "");
-    setResImageTitle(res.imageTitle || "");
-    setEditResImageUrl(res.imageUrl || "");
     setEditResId(res.id);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -225,41 +215,24 @@ export default function UploadData() {
 
   const handleUploadCertificate = async (e) => {
     e.preventDefault();
-    if (!editCertId && !certImage) return alert("Please select an image!");
+    if (!certImage) return alert("Please select an image!");
     setLoadingUpload(true);
-
     try {
-      let imageUrl = editCertImageUrl;
-
-      if (certImage) {
-        const formData = new FormData();
-        formData.append("file", certImage);
-        formData.append("upload_preset", "rummansPortfolio");
-
-        const cloudName = "dnm3tmkca";
-        const response = await axios.post(
-          `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-          formData,
-        );
-        imageUrl = response.data.secure_url;
-      }
-
-      if (editCertId) {
-        const certRef = ref(db, `certificate/${editCertId}`);
-        await update(certRef, {
-          imageUrl,
-        });
-        alert("Certificate updated ✅");
-      } else {
-        const newRef = push(ref(db, "certificate"));
-        await set(newRef, {
-          imageUrl,
-        });
-        alert("Certificate uploaded ✅");
-      }
+      const formData = new FormData();
+      formData.append("file", certImage);
+      formData.append("upload_preset", "rummansPortfolio");
+      const cloudName = "dnm3tmkca";
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        formData,
+      );
+      const newRef = push(ref(db, "certificate"));
+      await set(newRef, {
+        imageUrl: response.data.secure_url,
+        order: certificates.length,
+      });
+      alert("Certificate uploaded.");
       setCertImage(null);
-      setEditCertId(null);
-      setEditCertImageUrl("");
     } catch (err) {
       console.error("Upload failed:", err);
       alert("Upload/Update failed!");
@@ -267,13 +240,6 @@ export default function UploadData() {
       setLoadingUpload(false);
     }
   };
-
-  const handleEditCertificateBtn = (cert) => {
-    setEditCertImageUrl(cert.imageUrl || "");
-    setEditCertId(cert.id);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   const handleDeleteCertificate = async (id) => {
     if (confirm("Are you sure you want to delete this certificate?")) {
       try {
@@ -283,6 +249,45 @@ export default function UploadData() {
         console.error("Delete failed:", err);
         alert("Delete failed.");
       }
+    }
+  };
+
+  const handleCertificateDrop = async (targetCertId) => {
+    if (!draggedCertId || draggedCertId === targetCertId || savingCertOrder) {
+      setDraggedCertId(null);
+      return;
+    }
+
+    const fromIndex = certificates.findIndex((cert) => cert.id === draggedCertId);
+    const toIndex = certificates.findIndex((cert) => cert.id === targetCertId);
+
+    if (fromIndex === -1 || toIndex === -1) {
+      setDraggedCertId(null);
+      return;
+    }
+
+    const reorderedCertificates = moveItem(certificates, fromIndex, toIndex).map(
+      (cert, index) => ({
+        ...cert,
+        order: index,
+      }),
+    );
+
+    setCertificates(reorderedCertificates);
+    setDraggedCertId(null);
+    setSavingCertOrder(true);
+
+    try {
+      const updates = {};
+      reorderedCertificates.forEach((cert, index) => {
+        updates[`certificate/${cert.id}/order`] = index;
+      });
+      await update(ref(db), updates);
+    } catch (err) {
+      console.error("Certificate reorder failed:", err);
+      alert("Reordering certificates failed.");
+    } finally {
+      setSavingCertOrder(false);
     }
   };
 
@@ -317,38 +322,6 @@ export default function UploadData() {
             className="bg-transparent outline-2 outline-white py-2 px-2 text-white h-40 rounded-sm focus:outline-yellow-400"
             required
           />
-          {/* Image Upload */}
-          <div className="flex flex-col gap-2 -ml-0.5 ">
-            <input
-              type="file"
-              id="researchImage"
-              accept="image/*"
-              onChange={(e) => setResImage(e.target.files[0])}
-              className="hidden"
-              required={!editResId}
-            />
-
-            <label
-              htmlFor="researchImage"
-              className="w-fit cursor-pointer border-2 border-white px-4 py-2 text-white
-    hover:border-yellow-400 hover:text-yellow-400 duration-300 rounded-md"
-            >
-              Upload Image
-            </label>
-
-            {resImage && (
-              <p className="text-sm text-gray-300">Selected: {resImage.name}</p>
-            )}
-          </div>
-
-          <input
-            type="text"
-            value={resImageTitle}
-            placeholder="Image Title"
-            onChange={(e) => setResImageTitle(e.target.value)}
-            className="bg-transparent outline-2 outline-white py-2 px-2 text-white rounded-sm focus:outline-yellow-400"
-            required
-          />
           <div className="flex gap-4">
             <button
               type="submit"
@@ -373,9 +346,6 @@ export default function UploadData() {
                   setEditResId(null);
                   setResTitle("");
                   setResDescription("");
-                  setResImageTitle("");
-                  setResImage(null);
-                  setEditResImageUrl("");
                 }}
               >
                 Cancel Edit
@@ -460,7 +430,7 @@ export default function UploadData() {
           className="flex flex-col gap-4 mt-30"
         >
           <h1 className="font-Bebas text-[28px] text-white">
-            {editCertId ? "Edit Certificate" : "Certificate"}
+            Certificate
           </h1>
           <div className="flex flex-col gap-2 -ml-0.5 ">
             <input
@@ -469,7 +439,7 @@ export default function UploadData() {
               accept="image/*"
               onChange={(e) => setCertImage(e.target.files[0])}
               className="hidden"
-              required={!editCertId}
+              required
             />
             <label
               htmlFor="certificateImage"
@@ -490,27 +460,8 @@ export default function UploadData() {
               disabled={loadingUpload}
               className="text-[18px] text-black mt-4 px-3 py-1 border-2 border-transparent bg-white rounded-sm w-fit hover:text-yellow-400 hover:bg-transparent hover:border-yellow-400 duration-300 ease-out cursor-pointer select-none disabled:opacity-50"
             >
-              {loadingUpload
-                ? editCertId
-                  ? "Updating..."
-                  : "Uploading..."
-                : editCertId
-                  ? "Update Certificate"
-                  : "Upload Certificate"}
+              {loadingUpload ? "Uploading..." : "Upload Certificate"}
             </button>
-            {editCertId && (
-              <button
-                type="button"
-                className="text-[18px] text-white mt-4 px-3 py-1 border-2 border-red-500 rounded-md w-fit hover:bg-red-500 duration-300 ease-out cursor-pointer select-none"
-                onClick={() => {
-                  setEditCertId(null);
-                  setCertImage(null);
-                  setEditCertImageUrl("");
-                }}
-              >
-                Cancel Edit
-              </button>
-            )}
           </div>
         </form>
 
@@ -535,27 +486,12 @@ export default function UploadData() {
                       key={res.id}
                       className="border border-gray-600 p-4 rounded-md bg-white/5 flex flex-col gap-2"
                     >
-                      {res.imageUrl && (
-                        <div className="w-full h-40 relative rounded overflow-hidden">
-                          <img
-                            src={res.imageUrl}
-                            alt={res.imageTitle || res.title}
-                            className="object-cover w-full h-full"
-                          />
-                        </div>
-                      )}
                       <h3 className="text-xl font-bold text-white mt-2">
                         {res.title}
                       </h3>
                       <p className="text-gray-300 text-sm whitespace-pre-wrap">
                         {res.description}
                       </p>
-                      {res.imageTitle && (
-                        <p className="text-xs text-yellow-500 mt-auto">
-                          Image Title: {res.imageTitle}
-                        </p>
-                      )}
-
                       {/* ACTION BUTTONS */}
                       <div className="flex gap-4 mt-4 border-t border-gray-600 pt-3">
                         <button
@@ -643,38 +579,50 @@ export default function UploadData() {
               {certificates.length === 0 ? (
                 <p className="text-gray-400">No certificates found.</p>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {certificates.map((cert) => (
-                    <div
-                      key={cert.id}
-                      className="border border-gray-600 p-4 rounded-md bg-white/5 flex flex-col gap-2"
-                    >
-                      {cert.imageUrl && (
-                        <div className="w-full h-40 relative rounded overflow-hidden">
-                          <img
-                            src={cert.imageUrl}
-                            alt="Certificate"
-                            className="object-cover w-full h-full"
-                          />
+                <>
+                  <div className="mb-4 flex items-center justify-between gap-4 text-sm text-gray-400">
+                    <p>Drag certificate cards to change their display order.</p>
+                    {savingCertOrder && <p>Saving order...</p>}
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {certificates.map((cert, index) => (
+                      <div
+                        key={cert.id}
+                        draggable
+                        onDragStart={() => setDraggedCertId(cert.id)}
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={() => handleCertificateDrop(cert.id)}
+                        onDragEnd={() => setDraggedCertId(null)}
+                        className={`border p-4 rounded-md bg-white/5 flex flex-col gap-2 cursor-move transition ${
+                          draggedCertId === cert.id
+                            ? "border-yellow-400 opacity-60"
+                            : "border-gray-600"
+                        }`}
+                      >
+                        <p className="text-xs uppercase tracking-[0.2em] text-gray-400">
+                          Position {index + 1}
+                        </p>
+                        {cert.imageUrl && (
+                          <div className="w-full h-40 relative rounded overflow-hidden">
+                            <img
+                              src={cert.imageUrl}
+                              alt="Certificate"
+                              className="object-cover w-full h-full"
+                            />
+                          </div>
+                        )}
+                        <div className="flex gap-4 mt-4 border-t border-gray-600 pt-3">
+                          <button
+                            onClick={() => handleDeleteCertificate(cert.id)}
+                            className="bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1 rounded transition"
+                          >
+                            Delete
+                          </button>
                         </div>
-                      )}
-                      <div className="flex gap-4 mt-4 border-t border-gray-600 pt-3">
-                        <button
-                          onClick={() => handleEditCertificateBtn(cert)}
-                          className="bg-black text-white hover:bg-blue-500 hover:text-white px-3 py-1 rounded transition"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDeleteCertificate(cert.id)}
-                          className="bg-red-500/20 text-red-400 hover:bg-red-500 hover:text-white px-3 py-1 rounded transition"
-                        >
-                          Delete
-                        </button>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                </>
               )}
             </div>
           </div>
@@ -683,3 +631,4 @@ export default function UploadData() {
     </section>
   );
 }
+

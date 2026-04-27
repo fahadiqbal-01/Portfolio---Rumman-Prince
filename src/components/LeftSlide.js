@@ -12,6 +12,17 @@ import ContainerSec from "./containerSec";
 import { ref, onValue } from "firebase/database";
 import { db } from "../../firebaseConfig";
 
+const sortByOrder = (items) =>
+  [...items].sort((a, b) => {
+    const aOrder =
+      typeof a.order === "number" ? a.order : Number.MAX_SAFE_INTEGER;
+    const bOrder =
+      typeof b.order === "number" ? b.order : Number.MAX_SAFE_INTEGER;
+
+    if (aOrder !== bOrder) return aOrder - bOrder;
+    return a.id.localeCompare(b.id);
+  });
+
 export default function LeftSlide() {
   const [certificates, setCertificates] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +40,11 @@ export default function LeftSlide() {
     const unsubscribe = onValue(certsRef, (snapshot) => {
       const data = snapshot.val();
       setCertificates(
-        data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [],
+        data
+          ? sortByOrder(
+              Object.entries(data).map(([id, val]) => ({ id, ...val })),
+            )
+          : [],
       );
       setIsLoading(false);
     });
