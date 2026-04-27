@@ -206,7 +206,7 @@ export default function LeftSlide() {
                 quality={100}
                 draggable={false}
                 alt={`Certificate ${index + 1}`}
-                className="duration-300 ease-out grayscale group-hover:grayscale-0 object-cover"
+                className="duration-300 ease-out object-cover"
               />
             </motion.div>
           ))}

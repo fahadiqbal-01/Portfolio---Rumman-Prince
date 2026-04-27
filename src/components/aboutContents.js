@@ -88,7 +88,7 @@ export default function AboutContents() {
             className="lg:hidden xl:hidden 2xl:hidden w-full bg-transparent rounded-lg p-6 sm:p-8 border border-gray-300 shadow-lg shadow-gray-300/20 text-center"
           >
             <p className="font-Supreme text-[13px] sm:text-[14px] md:text-[15px] text-gray-300 mb-6">
-              Your browser does not support viewing this document.{" "}
+              Your browser does not support viewing this document.
               <a
                 href="CV/Shah Mohammad Rumman Prince.pdf"
                 target="_blank"
@@ -96,7 +96,7 @@ export default function AboutContents() {
                 className="text-yellow-400 hover:text-yellow-300 font-bold underline transition-colors"
               >
                 Click here to download
-              </a>{" "}
+              </a>
               the document.
             </p>
           </motion.div>
